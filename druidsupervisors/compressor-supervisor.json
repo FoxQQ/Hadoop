@@ -1,0 +1,51 @@
+{
+  "type": "kafka",
+  "dataSchema": {
+    "dataSource": "compressor_data",
+    "parser": {
+      "type": "string",
+      "parseSpec": {
+        "format": "json",
+        "timestampSpec": {
+          "column": "timestamp",
+          "format": "auto"
+        },
+        "dimensionsSpec": {
+          "dimensions": [
+            "serialnumber",
+            "timestamp",
+            {"name":"rpm", "type":"long"},
+            {"name":"evaporationtemp", "type":"long"},
+            {"name":"saggastemp", "type":"long"},
+            {"name":"compressedgastemp", "type":"long"},
+            {"name":"oiltemp", "type":"long"},            
+            {"name":"curret", "type":"double"},
+            {"name":"voltage", "type":"double"},
+            {"name":"coolant", "type":"double"},
+            {"name":"oil", "type":"double"}
+           ]
+        }
+      }
+    },
+    "metricsSpec": [],
+    "granularitySpec": {
+      "type": "uniform",
+      "segmentGranularity": "DAY",
+      "queryGranularity": "NONE",
+      "rollup": false
+    }
+  },
+  "tuningConfig": {
+    "type": "kafka",
+    "reportParseExceptions": false
+  },
+  "ioConfig": {
+    "topic": "compressor_data",
+    "replicas": 1,
+    "taskDuration": "",
+    "completionTimeout": "PT60M",
+    "consumerProperties": {
+      "bootstrap.servers": "master.myhdp.io:6667"
+    }
+  }
+}
