@@ -1,6 +1,7 @@
 package markus.druid;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -34,7 +37,8 @@ public class GUI extends JFrame implements ActionListener{
 	JScrollPane scrollPane;
 	GridBagConstraints c;
 	Integer c_rows=1;
-	JPanel head,input,content;
+	JPanel head,input,content,container ;
+	JScrollPane inputscroll;
 	
 	public GUI(int width, int height) {
 		this.setSize(width, height);
@@ -104,19 +108,32 @@ public class GUI extends JFrame implements ActionListener{
 		
 		/////////////////////////////////////////////////////////////////
 		input = new JPanel();
+		inputscroll = new JScrollPane(input);
+		inputscroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		gridbag = new GridBagLayout();
 		input.setLayout(gridbag);
 		
-		JPanel container = new JPanel();
+		
+		
+		JSplitPane splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT,inputscroll,content);
+		splitter.setOneTouchExpandable(true);
+		splitter.setResizeWeight(0.5);
+		splitter.setContinuousLayout(true);
+		splitter.getTopComponent().setMinimumSize(new Dimension(50,50));
+					
+		
+		container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+		head.setAlignmentX(CENTER_ALIGNMENT);
+		splitter.setAlignmentX(CENTER_ALIGNMENT);
 		container.add(head);
-		container.add(input);
-		container.add(content);
+		container.add(splitter);
+		//container.add(content);
 		
 		this.getContentPane().add(container);
 		
 		
-		this.pack();
+		pack();
 		
 	
 	}
@@ -148,11 +165,11 @@ public class GUI extends JFrame implements ActionListener{
 		plus.setActionCommand("plus");
 		gridbag.setConstraints(plus, c);
 		input.add(plus);
-		
-		input.revalidate();
-		input.repaint();
+	
+		container.revalidate();
+		container.repaint();
 		c_rows++;
-		pack();
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -275,7 +292,7 @@ public class GUI extends JFrame implements ActionListener{
 			textarea.setText(jsonfile);
 		}
 		
-		this.pack();
+		this.revalidate();
 		
 	}
 
