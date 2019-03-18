@@ -1,5 +1,7 @@
 markus\kafka\producers\simpleProducer.class
-markus\druid\GUI.class
-markus\kafka\producers\JSONTester.class
+markus\kafka\producers\CompressorProducerGUI.class
+markus\kafka\producers\CreateProducers.class
 markus\druid\JSONSupervisorCreater.class
 markus\kafka\producers\CompressorProducer.class
+markus\druid\GUI.class
+markus\kafka\producers\JSONTester.class

@@ -54,7 +54,7 @@ public class CompressorProducerGUI extends JFrame implements ActionListener{
 			this.setTitle(this.sn);
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			
+			System.out.println(this.server + ":" + this.port +" - " +this.topic);
 			init();
 			transmit();
 		}
@@ -151,7 +151,7 @@ public class CompressorProducerGUI extends JFrame implements ActionListener{
 		
 		public void transmit() {
 			Properties props = new Properties();
-		      props.put("bootstrap.servers", server+":"+port);
+		      props.put("bootstrap.servers", this.server+":"+this.port);
 		      props.put("acks", "all");
 		      props.put("retries", 0);
 		      props.put("batch.size", 16384);
@@ -192,7 +192,7 @@ public class CompressorProducerGUI extends JFrame implements ActionListener{
 		  	    System.out.println(compressor);
 		  	    
 		  	    try{
-			  	    producer.send(new ProducerRecord<String, String>(topic,Integer.toString(i), compressor.toString()));
+			  	    producer.send(new ProducerRecord<String, String>(this.topic,Integer.toString(i), compressor.toString()));
 			  	    i++;
 		  	    	System.out.println("Iteration" + Integer.toString(i));
 		  	    	Thread.sleep(5000);
