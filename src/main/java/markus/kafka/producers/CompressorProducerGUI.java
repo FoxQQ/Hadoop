@@ -187,9 +187,9 @@ public class CompressorProducerGUI extends JFrame implements ActionListener{
 		  	    if(coolant<=1) {
 		  	    	coolant=100.0;
 		  	    }
-		  	    oil = oil - Math.random()*oil_multiplier;
-		  	    coolant = coolant - Math.random()*coolant_multiplier;
-		  	    System.out.println(compressor);
+		  	    oil = Math.round(oil - Math.random()*oil_multiplier);
+		  	    coolant = Math.round(coolant - Math.random()*coolant_multiplier);
+		  	    System.out.println(coolant);
 		  	    
 		  	    try{
 			  	    producer.send(new ProducerRecord<String, String>(this.topic,Integer.toString(i), compressor.toString()));

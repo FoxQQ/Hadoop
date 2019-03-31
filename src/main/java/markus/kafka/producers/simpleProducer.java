@@ -8,9 +8,9 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 
 public class simpleProducer {
 	public static void main(String[] args) throws Exception{
-		String server = "master.myhdp.io",
+		String server = "35.239.177.150",
 				port = "6667",
-				topic = "test";
+				topic = "first";
 		
 		
 		 Properties props = new Properties();
